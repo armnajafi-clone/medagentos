@@ -224,6 +224,15 @@ class ToolExecutor:
         self._registry = registry
         self._trace = trace
 
+    def can(self, name: str, version: str | None = None) -> bool:
+        """Whether a capability is available.
+
+        Lets a step degrade gracefully when an optional capability is absent —
+        VECTOR_SEARCH.md requires a runtime with no evidence index to keep
+        executing workflows rather than failing them.
+        """
+        return self._registry.has(name, version)
+
     def call(
         self,
         name: str,
