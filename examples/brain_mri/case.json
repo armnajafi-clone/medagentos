@@ -1,0 +1,20 @@
+{
+  "case": {
+    "subject_ref": "synthetic-subject-001",
+    "metadata": {
+      "cohort": "reference-example",
+      "note": "Synthetic input. No real patient data is present in this repository."
+    }
+  },
+  "study": {
+    "modality": "MR",
+    "description": "Synthetic T1-weighted brain volume for the reference workflow"
+  },
+  "inputs": {
+    "volume_digest": "sha256:9f2c4a1b7e3d8065f4a2c9b1e7d3068a5c2f9b4e1d7a3c60f8b5e2d9a4c71f3b0",
+    "sequence": "T1",
+    "voxel_spacing_mm": [1.0, 1.0, 1.2],
+    "modality": "MR"
+  },
+  "seed": 20260913
+}

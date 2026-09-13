@@ -32,8 +32,17 @@ def _imports(path: Path) -> list[tuple[str, int]]:
     ``medagentos.core``.
     """
     tree = ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
-    package_parts = path.relative_to(ROOT / "src").with_suffix("").parts
-    if package_parts[-1] == "__init__":
+    # Resolve the file's own dotted package path, whichever import root it sits
+    # under: src/ for the package, plugins/ for plugin packages.
+    for root in (ROOT / "src", PLUGINS):
+        try:
+            package_parts = path.relative_to(root).with_suffix("").parts
+            break
+        except ValueError:
+            continue
+    else:  # pragma: no cover - a test file outside every import root
+        package_parts = path.with_suffix("").parts
+    if package_parts and package_parts[-1] == "__init__":
         package_parts = package_parts[:-1]
 
     found: list[tuple[str, int]] = []
